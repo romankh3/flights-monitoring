@@ -7,7 +7,7 @@ import lombok.Data;
  * Data transfer object for Currency.
  */
 @Data
-public class Currency {
+public class CurrencyDto {
 
     @JsonProperty("Code")
     private String code;

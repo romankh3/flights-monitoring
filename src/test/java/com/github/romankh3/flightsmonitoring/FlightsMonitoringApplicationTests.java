@@ -11,7 +11,5 @@ class FlightsMonitoringApplicationTests {
 
 	@Test
 	void contextLoads() {
-
 	}
-
 }

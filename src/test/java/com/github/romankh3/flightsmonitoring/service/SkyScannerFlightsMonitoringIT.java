@@ -1,7 +1,10 @@
 package com.github.romankh3.flightsmonitoring.service;
 
-import com.github.romankh3.flightsmonitoring.dto.Currency;
-import com.github.romankh3.flightsmonitoring.dto.Place;
+import com.github.romankh3.flightsmonitoring.dto.CountryDto;
+import com.github.romankh3.flightsmonitoring.dto.CurrencyDto;
+import com.github.romankh3.flightsmonitoring.dto.Locale;
+import com.github.romankh3.flightsmonitoring.dto.PlaceDto;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import java.io.IOException;
 import java.util.List;
 import org.junit.Assert;
@@ -16,18 +19,24 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class SkyScannerFlightsMonitoringIT {
 
     @Autowired
-    private FlightsCalls flightsCalls;
+    private ScyScannerClient scyScannerClient;
 
     @Test
-    public void testPlaces() throws IOException {
-        List<Place> places = flightsCalls.retrieveListPlaces("Stockholm", "UK", "GBP", "en-GB");
+    public void testPlaces() throws IOException, UnirestException {
+        List<PlaceDto> places = scyScannerClient.retrieveListPlaces("Stockholm", "UK", "GBP", Locale.EN_GB);
         Assert.assertFalse(places.isEmpty());
         Assert.assertEquals(5, places.size());
     }
 
     @Test
-    public void testCurrencies() throws IOException {
-        List<Currency> currencies = flightsCalls.retrieveCurrencies();
+    public void testCurrencies() throws IOException, UnirestException {
+        List<CurrencyDto> currencies = scyScannerClient.retrieveCurrencies();
         Assert.assertFalse(currencies.isEmpty());
+    }
+
+    @Test
+    public void testCountries() throws IOException, UnirestException {
+        List<CountryDto> countries = scyScannerClient.retrieveCountries(Locale.EN_GB);
+        Assert.assertFalse(countries.isEmpty());
     }
 }

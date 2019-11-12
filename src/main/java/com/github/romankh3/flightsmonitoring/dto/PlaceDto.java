@@ -7,7 +7,7 @@ import lombok.Data;
  * Data transfer object for Place based on SkyScanner response.
  */
 @Data
-public class Place {
+public class PlaceDto {
 
     @JsonProperty("PlaceId")
     private String placeId;
