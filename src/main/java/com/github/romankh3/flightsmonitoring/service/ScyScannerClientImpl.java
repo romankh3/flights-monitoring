@@ -34,6 +34,9 @@ public class ScyScannerClientImpl implements ScyScannerClient {
     public static final String PLACES_KEY = "Places";
     public static final String CURRENCIES_KEY = "Currencies";
     public static final String COUNTRIES_KEY = "Countries";
+    public static final String QUOTES_KEY = "Quotes";
+    public static final String ROUTES_KEY = "Routes";
+    public static final String DATES_KEY = "Dates";
 
     /**
      * {@inheritDoc}
