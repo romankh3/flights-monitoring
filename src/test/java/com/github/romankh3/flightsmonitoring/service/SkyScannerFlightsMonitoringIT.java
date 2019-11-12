@@ -19,24 +19,27 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class SkyScannerFlightsMonitoringIT {
 
     @Autowired
-    private ScyScannerClient scyScannerClient;
+    private PlacesClient placesClient;
+
+    @Autowired
+    private LocalisationClient localisationClient;
 
     @Test
     public void testPlaces() throws IOException, UnirestException {
-        List<PlaceDto> places = scyScannerClient.retrieveListPlaces("Stockholm", "UK", "GBP", Locale.EN_GB);
+        List<PlaceDto> places = placesClient.retrieveListPlaces("Stockholm", "UK", "GBP", Locale.EN_GB);
         Assert.assertFalse(places.isEmpty());
         Assert.assertEquals(5, places.size());
     }
 
     @Test
     public void testCurrencies() throws IOException, UnirestException {
-        List<CurrencyDto> currencies = scyScannerClient.retrieveCurrencies();
+        List<CurrencyDto> currencies = localisationClient.retrieveCurrencies();
         Assert.assertFalse(currencies.isEmpty());
     }
 
     @Test
     public void testCountries() throws IOException, UnirestException {
-        List<CountryDto> countries = scyScannerClient.retrieveCountries(Locale.EN_GB);
+        List<CountryDto> countries = localisationClient.retrieveCountries(Locale.EN_GB);
         Assert.assertFalse(countries.isEmpty());
     }
 }
