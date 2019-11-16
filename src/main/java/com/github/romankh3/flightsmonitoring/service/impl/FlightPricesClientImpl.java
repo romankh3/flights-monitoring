@@ -6,7 +6,7 @@ import static com.github.romankh3.flightsmonitoring.service.impl.UniRestServiceI
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.romankh3.flightsmonitoring.FlightClientException;
+import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
 import com.github.romankh3.flightsmonitoring.dto.CarrierDto;
 import com.github.romankh3.flightsmonitoring.dto.CurrencyDto;
 import com.github.romankh3.flightsmonitoring.dto.FlightPricesResponse;

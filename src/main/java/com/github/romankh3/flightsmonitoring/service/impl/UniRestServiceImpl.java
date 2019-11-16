@@ -1,6 +1,6 @@
 package com.github.romankh3.flightsmonitoring.service.impl;
 
-import com.github.romankh3.flightsmonitoring.FlightClientException;
+import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
 import com.github.romankh3.flightsmonitoring.service.UniRestService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;

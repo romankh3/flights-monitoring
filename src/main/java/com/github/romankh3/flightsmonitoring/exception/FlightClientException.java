@@ -1,4 +1,4 @@
-package com.github.romankh3.flightsmonitoring;
+package com.github.romankh3.flightsmonitoring.exception;
 
 /**
  * A {@link RuntimeException} that is thrown in case of an flight monitoring failures.
