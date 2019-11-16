@@ -1,11 +1,13 @@
 package com.github.romankh3.flightsmonitoring.service.impl;
 
+import com.github.romankh3.flightsmonitoring.FlightClientException;
 import com.github.romankh3.flightsmonitoring.service.UniRestService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,21 +26,26 @@ public class UniRestServiceImpl implements UniRestService {
     public static final String PLACES_KEY = "Places";
     public static final String CURRENCIES_KEY = "Currencies";
     public static final String COUNTRIES_KEY = "Countries";
-    public static final String QUOTES_KEY = "Quotes";
-    public static final String ROUTES_KEY = "Routes";
-    public static final String DATES_KEY = "Dates";
+
+    @Value("${x.rapid.api.key}")
+    private String xRapidApiKey;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public HttpResponse<JsonNode> get(String path) throws UnirestException {
-        HttpResponse<JsonNode> response = Unirest.get(HOST + path)
-                .header("x-rapidapi-host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
-                .header("x-rapidapi-key", "8c78203b8bmshfb1bcfddd95d0f9p1d08dfjsnff95927bab34")
-                .asJson();
+    public HttpResponse<JsonNode> get(String path) {
+        HttpResponse<JsonNode> response = null;
+        try {
+            response = Unirest.get(HOST + path)
+                    .header("x-rapidapi-host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
+                    .header("x-rapidapi-key", xRapidApiKey)
+                    .asJson();
+        } catch (UnirestException e) {
+            throw new FlightClientException(String.format("Request failed, path=%s", HOST + path), e);
+        }
 
-        log.info("Response from Get request, on path={}, response={}", path, response.getBody().toString());
+        log.info("Response from Get request, on path={}, statusCode={}, response={}", path, response.getStatus(), response.getBody().toString());
         return response;
     }
 }

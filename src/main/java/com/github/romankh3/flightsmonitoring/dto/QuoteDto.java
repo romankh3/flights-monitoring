@@ -1,7 +1,6 @@
 package com.github.romankh3.flightsmonitoring.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalDateTime;
 
 /**
  * Data transfer object Quota.
@@ -24,5 +23,5 @@ public class QuoteDto {
     private LegDto inboundLeg;
 
     @JsonProperty("QuoteDateTime")
-    private LocalDateTime quoteDateTime;
+    private String quoteDateTime;
 }

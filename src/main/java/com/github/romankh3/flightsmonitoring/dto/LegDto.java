@@ -1,7 +1,6 @@
 package com.github.romankh3.flightsmonitoring.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ public class LegDto {
     private Integer destinationId;
 
     @JsonProperty("DepartureDate")
-    private LocalDateTime departureDate;
+    private String departureDate;
 
     @JsonProperty("CarrierIds")
     private List<Integer> carrierIds;

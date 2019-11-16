@@ -36,7 +36,7 @@ public class LocalisationClientImpl implements LocalisationClient {
      * {@inheritDoc}
      */
     @Override
-    public List<CountryDto> retrieveCountries(String locale) throws IOException, UnirestException {
+    public List<CountryDto> retrieveCountries(String locale) throws IOException {
         HttpResponse<JsonNode> response = uniRestService.get(String.format(COUNTRIES_FORMAT, locale));
 
         if (response.getStatus() != HttpStatus.SC_OK) {
