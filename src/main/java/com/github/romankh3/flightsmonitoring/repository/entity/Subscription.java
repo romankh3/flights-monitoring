@@ -7,10 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
 @Table(name = "subscription")
+@ToString
 public class Subscription implements Serializable {
 
     private static final long serialVersionUID = 1;

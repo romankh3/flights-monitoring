@@ -1,16 +1,14 @@
 package com.github.romankh3.flightsmonitoring.service.impl;
 
-import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesResponse;
-import com.github.romankh3.flightsmonitoring.client.service.FlightPricesClient;
 import com.github.romankh3.flightsmonitoring.repository.SubscriptionRepository;
 import com.github.romankh3.flightsmonitoring.repository.entity.Subscription;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionDto;
+import com.github.romankh3.flightsmonitoring.service.EmailNotifierService;
 import com.github.romankh3.flightsmonitoring.service.FlightPriceService;
 import com.github.romankh3.flightsmonitoring.service.SubscriptionService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -27,6 +25,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Autowired
     private FlightPriceService flightPriceService;
 
+    @Autowired
+    private EmailNotifierService emailNotifierService;
+
     /**
      * {@inheritDoc}
      */
@@ -35,15 +36,15 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Subscription subscription = toEntity(dto);
         Optional<Subscription> one = subscriptionRepository.findOne(Example.of(subscription));
 
-        Integer minPrice = flightPriceService.findMinPrice(subscription);
-
-        if(one.isPresent()) {
+        if (one.isPresent()) {
             Subscription fromDatabase = one.get();
-            fromDatabase.setMinPrice(minPrice);
             return toDto(fromDatabase);
         } else {
+            Integer minPrice = flightPriceService.findMinPrice(subscription);
             subscription.setMinPrice(minPrice);
-            return toDto(subscriptionRepository.save(subscription));
+            Subscription save = subscriptionRepository.save(subscription);
+            emailNotifierService.notifyAddingSubscription(subscription);
+            return toDto(save);
         }
     }
 
