@@ -1,13 +1,13 @@
-package com.github.romankh3.flightsmonitoring.service.impl;
+package com.github.romankh3.flightsmonitoring.client.service.impl;
 
-import static com.github.romankh3.flightsmonitoring.service.impl.UniRestServiceImpl.PLACES_FORMAT;
-import static com.github.romankh3.flightsmonitoring.service.impl.UniRestServiceImpl.PLACES_KEY;
+import static com.github.romankh3.flightsmonitoring.client.service.impl.UniRestServiceImpl.PLACES_FORMAT;
+import static com.github.romankh3.flightsmonitoring.client.service.impl.UniRestServiceImpl.PLACES_KEY;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.romankh3.flightsmonitoring.dto.PlaceDto;
-import com.github.romankh3.flightsmonitoring.service.PlacesClient;
-import com.github.romankh3.flightsmonitoring.service.UniRestService;
+import com.github.romankh3.flightsmonitoring.client.dto.PlaceDto;
+import com.github.romankh3.flightsmonitoring.client.service.PlacesClient;
+import com.github.romankh3.flightsmonitoring.client.service.UniRestService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;

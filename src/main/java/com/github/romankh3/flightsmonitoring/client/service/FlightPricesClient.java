@@ -1,6 +1,6 @@
-package com.github.romankh3.flightsmonitoring.service;
+package com.github.romankh3.flightsmonitoring.client.service;
 
-import com.github.romankh3.flightsmonitoring.dto.FlightPricesResponse;
+import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesResponse;
 
 /**
  * Browse flight prices.

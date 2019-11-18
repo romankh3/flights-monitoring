@@ -1,4 +1,4 @@
-package com.github.romankh3.flightsmonitoring.dto;
+package com.github.romankh3.flightsmonitoring.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -12,14 +12,20 @@ public class PlaceDto {
     @JsonProperty("PlaceId")
     private String placeId;
 
-    @JsonProperty("PlaceName")
-    private String placeName;
+    @JsonProperty("IataCode")
+    private String iataCode;
 
-    @JsonProperty("CountryId")
-    private String countryId;
+    @JsonProperty("Name")
+    private String name;
 
-    @JsonProperty("RegionId")
-    private String regionId;
+    @JsonProperty("Type")
+    private String type;
+
+    @JsonProperty("SkyscannerCode")
+    private String skyscannerCode;
+
+    @JsonProperty("CityName")
+    private String cityName;
 
     @JsonProperty("CityId")
     private String cityId;

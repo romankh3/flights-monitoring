@@ -1,20 +1,20 @@
-package com.github.romankh3.flightsmonitoring.service.impl;
+package com.github.romankh3.flightsmonitoring.client.service.impl;
 
 
-import static com.github.romankh3.flightsmonitoring.service.impl.UniRestServiceImpl.CURRENCIES_KEY;
-import static com.github.romankh3.flightsmonitoring.service.impl.UniRestServiceImpl.PLACES_KEY;
+import static com.github.romankh3.flightsmonitoring.client.service.impl.UniRestServiceImpl.CURRENCIES_KEY;
+import static com.github.romankh3.flightsmonitoring.client.service.impl.UniRestServiceImpl.PLACES_KEY;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
-import com.github.romankh3.flightsmonitoring.dto.CarrierDto;
-import com.github.romankh3.flightsmonitoring.dto.CurrencyDto;
-import com.github.romankh3.flightsmonitoring.dto.FlightPricesResponse;
-import com.github.romankh3.flightsmonitoring.dto.PlaceDto;
-import com.github.romankh3.flightsmonitoring.dto.QuoteDto;
-import com.github.romankh3.flightsmonitoring.dto.ValidationErrorDto;
-import com.github.romankh3.flightsmonitoring.service.FlightPricesClient;
-import com.github.romankh3.flightsmonitoring.service.UniRestService;
+import com.github.romankh3.flightsmonitoring.client.dto.CarrierDto;
+import com.github.romankh3.flightsmonitoring.client.dto.CurrencyDto;
+import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesResponse;
+import com.github.romankh3.flightsmonitoring.client.dto.PlaceDto;
+import com.github.romankh3.flightsmonitoring.client.dto.QuoteDto;
+import com.github.romankh3.flightsmonitoring.client.dto.ValidationErrorDto;
+import com.github.romankh3.flightsmonitoring.client.service.FlightPricesClient;
+import com.github.romankh3.flightsmonitoring.client.service.UniRestService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import java.io.IOException;

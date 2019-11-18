@@ -1,7 +1,8 @@
-package com.github.romankh3.flightsmonitoring.service;
+package com.github.romankh3.flightsmonitoring.client.service;
 
-import com.github.romankh3.flightsmonitoring.dto.Locale;
-import com.github.romankh3.flightsmonitoring.dto.PlaceDto;
+import com.github.romankh3.flightsmonitoring.client.dto.Locale;
+import com.github.romankh3.flightsmonitoring.client.dto.PlaceDto;
+import com.github.romankh3.flightsmonitoring.client.service.PlacesClient;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.github.romankh3.flightsmonitoring.service;
+package com.github.romankh3.flightsmonitoring.client.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

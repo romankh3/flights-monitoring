@@ -1,4 +1,4 @@
-package com.github.romankh3.flightsmonitoring.dto;
+package com.github.romankh3.flightsmonitoring.client.dto;
 
 /**
  * List of the locales.

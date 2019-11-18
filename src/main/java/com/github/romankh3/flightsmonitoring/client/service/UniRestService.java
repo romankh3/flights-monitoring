@@ -1,4 +1,4 @@
-package com.github.romankh3.flightsmonitoring.service;
+package com.github.romankh3.flightsmonitoring.client.service;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;

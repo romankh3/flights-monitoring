@@ -1,4 +1,4 @@
-package com.github.romankh3.flightsmonitoring.dto;
+package com.github.romankh3.flightsmonitoring.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
