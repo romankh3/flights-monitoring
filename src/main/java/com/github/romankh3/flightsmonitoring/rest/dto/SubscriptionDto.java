@@ -10,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
  * Data transfer object to see all the data related to subscription.
  */
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "minPrice")
 public class SubscriptionDto {
 
     @NotNull
@@ -37,4 +37,6 @@ public class SubscriptionDto {
 
     @DateTimeFormat(iso = ISO.DATE)
     private String inboundPartialDate;
+
+    private Integer minPrice;
 }

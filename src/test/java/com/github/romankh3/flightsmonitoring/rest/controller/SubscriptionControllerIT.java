@@ -57,6 +57,8 @@ public class SubscriptionControllerIT {
         Assert.assertNotNull(savedDto);
         Assert.assertEquals(dto, savedDto);
 
+        mockMvc.perform(requestCreateSubscription);
+
         MockHttpServletRequestBuilder requestGetAllSubscriptions = MockMvcRequestBuilders
                 .get(SUBSCRIPTION_CONTROLLER_EP + "/" + dto.getUsername())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

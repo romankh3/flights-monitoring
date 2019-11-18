@@ -9,5 +9,6 @@ CREATE TABLE subscription (
     origin_place VARCHAR(250) NOT NULL,
     destination_place VARCHAR(250) NOT NULL,
     outbound_partial_date VARCHAR(250) NOT NULL,
+    min_price INT,
     inbound_partial_date VARCHAR(250),
 )

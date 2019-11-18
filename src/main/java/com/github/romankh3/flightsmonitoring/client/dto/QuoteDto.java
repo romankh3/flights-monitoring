@@ -1,10 +1,12 @@
 package com.github.romankh3.flightsmonitoring.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 /**
  * Data transfer object Quota.
  */
+@Data
 public class QuoteDto {
 
     @JsonProperty("QuoteId")
