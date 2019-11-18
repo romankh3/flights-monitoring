@@ -37,7 +37,7 @@ public class SubscriptionControllerIT {
     @Test
     public void shouldAddSubscription() throws Exception {
         SubscriptionDto dto = new SubscriptionDto();
-        dto.setUsername("testUserName");
+        dto.setUsername("kremenec.andru@gmail.com");
         dto.setCountry("UA");
         dto.setCurrency("UAH");
         dto.setLocale(Locale.RU_RU);

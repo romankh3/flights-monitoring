@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  * Data transfer object to see all the data related to subscription.
  */
 @Data
-@EqualsAndHashCode(exclude = "minPrice")
+@EqualsAndHashCode(exclude = {"minPrice", "id"})
 public class SubscriptionDto {
 
     private Long id;
