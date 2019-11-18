@@ -2,6 +2,7 @@ package com.github.romankh3.flightsmonitoring.rest.dto;
 
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -9,7 +10,8 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
  * Data transfer object to see all the data related to subscription.
  */
 @Data
-public class SubscribeDto {
+@EqualsAndHashCode
+public class SubscriptionDto {
 
     @NotNull
     private String username;
