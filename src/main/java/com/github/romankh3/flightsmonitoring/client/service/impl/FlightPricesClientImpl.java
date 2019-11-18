@@ -6,7 +6,6 @@ import static com.github.romankh3.flightsmonitoring.client.service.impl.UniRestS
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
 import com.github.romankh3.flightsmonitoring.client.dto.CarrierDto;
 import com.github.romankh3.flightsmonitoring.client.dto.CurrencyDto;
 import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesResponse;
@@ -15,6 +14,7 @@ import com.github.romankh3.flightsmonitoring.client.dto.QuoteDto;
 import com.github.romankh3.flightsmonitoring.client.dto.ValidationErrorDto;
 import com.github.romankh3.flightsmonitoring.client.service.FlightPricesClient;
 import com.github.romankh3.flightsmonitoring.client.service.UniRestService;
+import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import java.io.IOException;
@@ -66,10 +66,10 @@ public class FlightPricesClientImpl implements FlightPricesClient {
 
     private FlightPricesResponse mapToObject(HttpResponse<JsonNode> response) {
         if (response.getStatus() == 400) {
-            return FlightPricesResponse.builder()
-                    .validationErrors(readValue(response.getBody().getObject().get(VALIDATIONS_KEY).toString(),
-                                    new TypeReference<List<ValidationErrorDto>>() {}))
-                    .build();
+            throw new FlightClientException("There are validation errors",
+                    readValue(response.getBody().getObject().get(VALIDATIONS_KEY).toString(),
+                            new TypeReference<List<ValidationErrorDto>>() {
+                            }));
         }
         return FlightPricesResponse.builder()
                 .quotas(readValue(response.getBody().getObject().get(QUOTES_KEY).toString(),

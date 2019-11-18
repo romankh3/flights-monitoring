@@ -3,6 +3,7 @@ package com.github.romankh3.flightsmonitoring.rest.controller;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionDto;
 import com.github.romankh3.flightsmonitoring.service.SubscriptionService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ public class SubscriptionController {
     private SubscriptionService subscriptionService;
 
     @PostMapping
-    public @ResponseBody SubscriptionDto subscribe(@RequestBody SubscriptionDto dto) {
+    public @ResponseBody SubscriptionDto subscribe(@RequestBody @Valid SubscriptionDto dto) {
         return subscriptionService.subscribe(dto);
     }
 
