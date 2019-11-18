@@ -13,7 +13,7 @@ public interface SubscriptionService {
      * Add new subscription.
      * @param dto the dto of the subscription.
      */
-    SubscriptionDto subscribe(SubscriptionDto dto);
+    SubscriptionDto create(SubscriptionDto dto);
 
     /**
      * Get all subscription based on email.
@@ -28,7 +28,7 @@ public interface SubscriptionService {
      *
      * @param subscriptionId the ID of the {@link Subscription}.
      */
-    void unsubscribe(Long subscriptionId);
+    void delete(Long subscriptionId);
 
     /**
      * Update subscription based on ID

@@ -34,7 +34,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * {@inheritDoc}
      */
     @Override
-    public SubscriptionDto subscribe(SubscriptionDto dto) {
+    public SubscriptionDto create(SubscriptionDto dto) {
         Subscription subscription = toEntity(dto);
         Optional<Subscription> one = subscriptionRepository.findOne(Example.of(subscription));
 
@@ -62,7 +62,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public void unsubscribe(Long subscriptionId) {
+    public void delete(Long subscriptionId) {
         subscriptionRepository.deleteById(subscriptionId);
     }
 

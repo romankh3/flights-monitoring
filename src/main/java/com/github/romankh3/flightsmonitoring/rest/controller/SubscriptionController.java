@@ -26,8 +26,8 @@ public class SubscriptionController {
 
     @PostMapping
     public @ResponseBody
-    SubscriptionDto subscribe(@RequestBody @Valid SubscriptionDto dto) {
-        return subscriptionService.subscribe(dto);
+    SubscriptionDto create(@RequestBody @Valid SubscriptionDto dto) {
+        return subscriptionService.create(dto);
     }
 
     @GetMapping("/{email}")
@@ -43,7 +43,7 @@ public class SubscriptionController {
     }
 
     @DeleteMapping("/{subscriptionId}")
-    public void unsubscribe(@PathVariable final Long subscriptionId) {
-        subscriptionService.unsubscribe(subscriptionId);
+    public void delete(@PathVariable final Long subscriptionId) {
+        subscriptionService.delete(subscriptionId);
     }
 }
