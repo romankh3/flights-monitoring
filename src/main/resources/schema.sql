@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS subscription;
 
 CREATE TABLE subscription (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(250) NOT NULL,
+    email VARCHAR(250) NOT NULL,
     country VARCHAR(250) NOT NULL,
     currency VARCHAR(250) NOT NULL,
     locale VARCHAR(250) NOT NULL,

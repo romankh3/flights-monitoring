@@ -22,8 +22,8 @@ public class Subscription implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "country")
     private String country;

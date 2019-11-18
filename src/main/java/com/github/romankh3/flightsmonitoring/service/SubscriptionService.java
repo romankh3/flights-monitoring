@@ -1,5 +1,6 @@
 package com.github.romankh3.flightsmonitoring.service;
 
+import com.github.romankh3.flightsmonitoring.repository.entity.Subscription;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionDto;
 import java.util.List;
 
@@ -15,10 +16,27 @@ public interface SubscriptionService {
     SubscriptionDto subscribe(SubscriptionDto dto);
 
     /**
-     * Get all subscription based on username.
+     * Get all subscription based on email.
      *
-     * @param username provided username;
+     * @param email provided email;
      * @return the collection of the {@link SubscriptionDto} objects.
      */
-    List<SubscriptionDto> findSubscribeByUsername(String username);
+    List<SubscriptionDto> findSubscribeByEmail(String email);
+
+    /**
+     * Remove subscription based on it ID
+     *
+     * @param subscriptionId the ID of the {@link Subscription}.
+     */
+    void unsubscribe(Long subscriptionId);
+
+    /**
+     * Update subscription based on ID
+     *
+     *
+     * @param subscriptionId the ID of the subscription to be updated.
+     * @param dto the data to be updated.
+     * @return updated {@link SubscriptionDto}.
+     */
+    SubscriptionDto update(Long subscriptionId, SubscriptionDto dto);
 }

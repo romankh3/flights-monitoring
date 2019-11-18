@@ -35,9 +35,9 @@ public class SubscriptionControllerIT {
     private ObjectMapper objectMapper;
 
     @Test
-    public void shouldAddSubscription() throws Exception {
+    public void shouldCRUDSubscription() throws Exception {
         SubscriptionDto dto = new SubscriptionDto();
-        dto.setUsername("kremenec.andru@gmail.com");
+        dto.setEmail("kremenec.andru@gmail.com");
         dto.setCountry("UA");
         dto.setCurrency("UAH");
         dto.setLocale(Locale.RU_RU);
@@ -45,30 +45,70 @@ public class SubscriptionControllerIT {
         dto.setDestinationPlace("KBP-sky");
         dto.setOutboundPartialDate(LocalDate.now().plusMonths(1));
 
-        MockHttpServletRequestBuilder requestCreateSubscription = MockMvcRequestBuilders
+        MockHttpServletRequestBuilder createRequest = MockMvcRequestBuilders
                 .post(SUBSCRIPTION_CONTROLLER_EP)
                 .content(objectMapper.writeValueAsString(dto))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE);
+
+        //Create subscription
         SubscriptionDto savedDto = objectMapper
-                .readValue(performAndConvertToString(requestCreateSubscription), SubscriptionDto.class);
+                .readValue(performAndConvertToString(createRequest), SubscriptionDto.class);
 
         Assert.assertNotNull(savedDto);
         Assert.assertEquals(dto, savedDto);
 
-        mockMvc.perform(requestCreateSubscription);
+       //Create the same subscription
+        mockMvc.perform(createRequest);
 
-        MockHttpServletRequestBuilder requestGetAllSubscriptions = MockMvcRequestBuilders
-                .get(SUBSCRIPTION_CONTROLLER_EP + "/" + dto.getUsername())
+        MockHttpServletRequestBuilder getAllByEmailRequest = MockMvcRequestBuilders
+                .get(SUBSCRIPTION_CONTROLLER_EP + "/" + dto.getEmail())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE);
 
-        List<SubscriptionDto> subscriptions = readValue(performAndConvertToString(requestGetAllSubscriptions),
+        //Get all subscriptions based on email
+        List<SubscriptionDto> subscriptions = readValue(performAndConvertToString(getAllByEmailRequest),
                 new TypeReference<List<SubscriptionDto>>() {
                 });
 
         Assert.assertEquals(1, subscriptions.size());
         Assert.assertEquals(dto, subscriptions.get(0));
+
+        SubscriptionDto updatedDto = new SubscriptionDto();
+        updatedDto.setEmail("kremenec.andru@gmail.com");
+        updatedDto.setCountry("RU");
+        updatedDto.setCurrency("RUB");
+        updatedDto.setLocale(Locale.RU_RU);
+        updatedDto.setOriginPlace("KBP-sky");
+        updatedDto.setDestinationPlace("HRK-sky");
+        updatedDto.setOutboundPartialDate(LocalDate.now().plusMonths(2));
+
+        MockHttpServletRequestBuilder updateRequest = MockMvcRequestBuilders.put(SUBSCRIPTION_CONTROLLER_EP + "/" + subscriptions.get(0).getId())
+                .content(objectMapper.writeValueAsString(updatedDto))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE);
+
+        mockMvc.perform(updateRequest);
+
+        subscriptions = readValue(performAndConvertToString(getAllByEmailRequest),
+                new TypeReference<List<SubscriptionDto>>() {
+                });
+
+        Assert.assertEquals(1, subscriptions.size());
+        Assert.assertEquals(updatedDto, subscriptions.get(0));
+
+        MockHttpServletRequestBuilder removeRequest = MockMvcRequestBuilders
+                .delete(SUBSCRIPTION_CONTROLLER_EP + "/" + subscriptions.get(0).getId())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE);
+
+        mockMvc.perform(removeRequest);
+
+        subscriptions = readValue(performAndConvertToString(getAllByEmailRequest),
+                new TypeReference<List<SubscriptionDto>>() {
+                });
+
+        Assert.assertTrue(subscriptions.isEmpty());
     }
 
     private <T> List<T> readValue(String resultAsString, TypeReference<List<T>> valueTypeRef) {

@@ -19,7 +19,7 @@ public class EmailNotifierServiceImpl implements EmailNotifierService {
     public void notifySubscriber(Subscription subscription, Integer oldMinPrice, Integer newMinPrice) {
         log.debug("method notifySubscriber STARTED");
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo(subscription.getUsername());
+        msg.setTo(subscription.getEmail());
         msg.setSubject("Flights Monitoring Service");
         msg.setText(String.format("Hello, dear! \n "
                 + "the price for your flight has decreased \n"
@@ -32,7 +32,7 @@ public class EmailNotifierServiceImpl implements EmailNotifierService {
     public void notifyAddingSubscription(Subscription subscription) {
         log.debug("method notifyAddingSubscription STARTED");
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo(subscription.getUsername());
+        msg.setTo(subscription.getEmail());
         msg.setSubject("Flights Monitoring Service");
         msg.setText(String.format("Hello, dear! \n "
                 + "Subscription has been successfully added. \n"

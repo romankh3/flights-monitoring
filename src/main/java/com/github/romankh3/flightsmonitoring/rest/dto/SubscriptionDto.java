@@ -2,6 +2,7 @@ package com.github.romankh3.flightsmonitoring.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +17,8 @@ public class SubscriptionDto {
     private Long id;
 
     @NotNull
-    private String username;
+    @Email
+    private String email;
 
     @NotNull
     private String country;

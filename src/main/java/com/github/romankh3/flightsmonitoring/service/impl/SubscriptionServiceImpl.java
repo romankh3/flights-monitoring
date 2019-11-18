@@ -57,8 +57,27 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * {@inheritDoc}
      */
     @Override
-    public List<SubscriptionDto> findSubscribeByUsername(String username) {
-        return subscriptionRepository.findByUsername(username).stream().map(this::toDto).collect(Collectors.toList());
+    public List<SubscriptionDto> findSubscribeByEmail(String email) {
+        return subscriptionRepository.findByEmail(email).stream().map(this::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public void unsubscribe(Long subscriptionId) {
+        subscriptionRepository.deleteById(subscriptionId);
+    }
+
+    @Override
+    public SubscriptionDto update(Long subscriptionId, SubscriptionDto dto) {
+        Subscription subscription = subscriptionRepository.getOne(subscriptionId);
+        subscription.setDestinationPlace(dto.getDestinationPlace());
+        subscription.setOriginPlace(dto.getOriginPlace());
+        subscription.setLocale(dto.getLocale());
+        subscription.setCurrency(dto.getCurrency());
+        subscription.setCountry(dto.getCountry());
+        subscription.setEmail(dto.getEmail());
+        subscription.setOutboundPartialDate(dto.getOutboundPartialDate());
+        subscription.setInboundPartialDate(dto.getInboundPartialDate());
+        return toDto(subscriptionRepository.save(subscription));
     }
 
     private Subscription toEntity(SubscriptionDto dto) {
@@ -70,14 +89,14 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         subscription.setOutboundPartialDate(dto.getOutboundPartialDate());
         subscription.setLocale(dto.getLocale());
         subscription.setOriginPlace(dto.getOriginPlace());
-        subscription.setUsername(dto.getUsername());
+        subscription.setEmail(dto.getEmail());
 
         return subscription;
     }
 
     private SubscriptionDto toDto(Subscription entity) {
         SubscriptionDto dto = new SubscriptionDto();
-        dto.setUsername(entity.getUsername());
+        dto.setEmail(entity.getEmail());
         dto.setCountry(entity.getCountry());
         dto.setCurrency(entity.getCurrency());
         dto.setLocale(entity.getLocale());
