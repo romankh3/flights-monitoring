@@ -4,6 +4,7 @@ import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionDto;
 import com.github.romankh3.flightsmonitoring.service.SubscriptionService;
 import java.util.List;
 import javax.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

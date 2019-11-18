@@ -19,6 +19,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import java.io.IOException;
 import java.util.List;
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,26 +66,26 @@ public class FlightPricesClientImpl implements FlightPricesClient {
     }
 
     private FlightPricesResponse mapToObject(HttpResponse<JsonNode> response) {
-        if (response.getStatus() == 400) {
-            throw new FlightClientException("There are validation errors",
-                    readValue(response.getBody().getObject().get(VALIDATIONS_KEY).toString(),
-                            new TypeReference<List<ValidationErrorDto>>() {
-                            }));
+        if (response.getStatus() == HttpStatus.SC_OK) {
+            return FlightPricesResponse.builder()
+                    .quotas(readValue(response.getBody().getObject().get(QUOTES_KEY).toString(),
+                            new TypeReference<List<QuoteDto>>() {
+                            }))
+                    .carriers(readValue(response.getBody().getObject().get(CARRIERS_KEY).toString(),
+                            new TypeReference<List<CarrierDto>>() {
+                            }))
+                    .places(readValue(response.getBody().getObject().get(PLACES_KEY).toString(),
+                            new TypeReference<List<PlaceDto>>() {
+                            }))
+                    .currencies(readValue(response.getBody().getObject().get(CURRENCIES_KEY).toString(),
+                            new TypeReference<List<CurrencyDto>>() {
+                            }))
+                    .build();
         }
-        return FlightPricesResponse.builder()
-                .quotas(readValue(response.getBody().getObject().get(QUOTES_KEY).toString(),
-                        new TypeReference<List<QuoteDto>>() {
-                        }))
-                .carriers(readValue(response.getBody().getObject().get(CARRIERS_KEY).toString(),
-                        new TypeReference<List<CarrierDto>>() {
-                        }))
-                .places(readValue(response.getBody().getObject().get(PLACES_KEY).toString(),
-                        new TypeReference<List<PlaceDto>>() {
-                        }))
-                .currencies(readValue(response.getBody().getObject().get(CURRENCIES_KEY).toString(),
-                        new TypeReference<List<CurrencyDto>>() {
-                        }))
-                .build();
+        throw new FlightClientException(String.format("There are validation errors. statusCode = %s", response.getStatus()),
+                readValue(response.getBody().getObject().get(VALIDATIONS_KEY).toString(),
+                        new TypeReference<List<ValidationErrorDto>>() {
+                        }));
     }
 
     private <T> List<T> readValue(String resultAsString, TypeReference<List<T>> valueTypeRef) {

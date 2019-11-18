@@ -2,11 +2,13 @@ package com.github.romankh3.flightsmonitoring.service.impl;
 
 import com.github.romankh3.flightsmonitoring.repository.entity.Subscription;
 import com.github.romankh3.flightsmonitoring.service.EmailNotifierService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class EmailNotifierServiceImpl implements EmailNotifierService {
 
@@ -15,6 +17,7 @@ public class EmailNotifierServiceImpl implements EmailNotifierService {
 
     @Override
     public void notifySubscriber(Subscription subscription, Integer oldMinPrice, Integer newMinPrice) {
+        log.debug("method notifySubscriber STARTED");
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(subscription.getUsername());
         msg.setSubject("Flights Monitoring Service");
@@ -22,10 +25,12 @@ public class EmailNotifierServiceImpl implements EmailNotifierService {
                 + "the price for your flight has decreased \n"
                 + "Old min price = %s,\n new min price = %s,\n Subscription details = %s", oldMinPrice, newMinPrice, subscription.toString()));
         javaMailSender.send(msg);
+        log.debug("method notifySubscriber FINISHED");
     }
 
     @Override
     public void notifyAddingSubscription(Subscription subscription) {
+        log.debug("method notifyAddingSubscription STARTED");
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(subscription.getUsername());
         msg.setSubject("Flights Monitoring Service");
@@ -33,5 +38,6 @@ public class EmailNotifierServiceImpl implements EmailNotifierService {
                 + "Subscription has been successfully added. \n"
                 + "Subscription details = %s", subscription.toString()));
         javaMailSender.send(msg);
+        log.debug("method notifyAddingSubscription FINISHED");
     }
 }

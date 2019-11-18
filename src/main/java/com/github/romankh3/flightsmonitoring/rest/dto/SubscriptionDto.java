@@ -1,10 +1,10 @@
 package com.github.romankh3.flightsmonitoring.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDate;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  * Data transfer object to see all the data related to subscription.
@@ -12,6 +12,8 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 @Data
 @EqualsAndHashCode(exclude = "minPrice")
 public class SubscriptionDto {
+
+    private Long id;
 
     @NotNull
     private String username;
@@ -32,11 +34,11 @@ public class SubscriptionDto {
     private String destinationPlace;
 
     @NotNull
-    @DateTimeFormat(iso = ISO.DATE)
-    private String outboundPartialDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate outboundPartialDate;
 
-    @DateTimeFormat(iso = ISO.DATE)
-    private String inboundPartialDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate inboundPartialDate;
 
     private Integer minPrice;
 }

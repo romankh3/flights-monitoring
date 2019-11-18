@@ -9,6 +9,7 @@ import com.github.romankh3.flightsmonitoring.service.SubscriptionService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 /**
  * {@inheritDoc}
  */
+@Slf4j
 @Service
 public class SubscriptionServiceImpl implements SubscriptionService {
 
@@ -37,14 +39,17 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Optional<Subscription> one = subscriptionRepository.findOne(Example.of(subscription));
 
         if (one.isPresent()) {
+            log.info("The same subscription has been found for Subscription={}", subscription);
             Subscription fromDatabase = one.get();
             return toDto(fromDatabase);
         } else {
+
             Integer minPrice = flightPriceService.findMinPrice(subscription);
             subscription.setMinPrice(minPrice);
-            Subscription save = subscriptionRepository.save(subscription);
+            Subscription saved = subscriptionRepository.save(subscription);
+            log.info("Added new subscription={}", saved);
             emailNotifierService.notifyAddingSubscription(subscription);
-            return toDto(save);
+            return toDto(saved);
         }
     }
 
@@ -81,6 +86,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         dto.setOutboundPartialDate(entity.getOutboundPartialDate());
         dto.setInboundPartialDate(entity.getInboundPartialDate());
         dto.setMinPrice(entity.getMinPrice());
+        dto.setId(entity.getId());
         return dto;
     }
 }

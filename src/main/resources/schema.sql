@@ -8,7 +8,7 @@ CREATE TABLE subscription (
     locale VARCHAR(250) NOT NULL,
     origin_place VARCHAR(250) NOT NULL,
     destination_place VARCHAR(250) NOT NULL,
-    outbound_partial_date VARCHAR(250) NOT NULL,
+    outbound_partial_date DATE NOT NULL,
     min_price INT,
-    inbound_partial_date VARCHAR(250),
+    inbound_partial_date DATE,
 )

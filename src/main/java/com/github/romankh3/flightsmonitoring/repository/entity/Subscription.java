@@ -1,6 +1,7 @@
 package com.github.romankh3.flightsmonitoring.repository.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,10 +41,10 @@ public class Subscription implements Serializable {
     private String destinationPlace;
 
     @Column(name = "outbound_partial_date")
-    private String outboundPartialDate;
+    private LocalDate outboundPartialDate;
 
     @Column(name = "inbound_partial_date")
-    private String inboundPartialDate;
+    private LocalDate inboundPartialDate;
 
     @Column(name = "min_price")
     private Integer minPrice;

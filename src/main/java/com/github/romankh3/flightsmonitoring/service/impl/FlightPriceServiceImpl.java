@@ -18,12 +18,12 @@ public class FlightPriceServiceImpl implements FlightPriceService {
             return flightPricesClient
                     .browseQuotes(subscription.getCountry(), subscription.getCurrency(), subscription.getLocale(),
                             subscription.getOriginPlace(), subscription.getDestinationPlace(),
-                            subscription.getOutboundPartialDate()).getQuotas().get(0).getMinPrice();
+                            subscription.getOutboundPartialDate().toString()).getQuotas().get(0).getMinPrice();
         } else {
             return flightPricesClient
                     .browseQuotes(subscription.getCountry(), subscription.getCurrency(), subscription.getLocale(),
                             subscription.getOriginPlace(), subscription.getDestinationPlace(),
-                            subscription.getOutboundPartialDate(), subscription.getInboundPartialDate()).getQuotas()
+                            subscription.getOutboundPartialDate().toString(), subscription.getInboundPartialDate().toString()).getQuotas()
                     .get(0).getMinPrice();
         }
     }

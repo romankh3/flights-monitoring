@@ -13,11 +13,13 @@ public class SchedulerTasks {
     @Autowired
     private RecountMinPriceService recountMinPriceService;
 
-    private static final long THIRTY_MINUTES = 1000 * 60 * 30;
+    private static final long TEN_MINUTES = 1000 * 60 * 10;
 
-    @Scheduled(fixedRate = THIRTY_MINUTES)
+    @Scheduled(fixedRate = TEN_MINUTES)
     public void recountMinPrice() {
+        log.debug("recount minPrice Started");
         recountMinPriceService.recount();
+        log.debug("recount minPrice finished");
     }
 
 }

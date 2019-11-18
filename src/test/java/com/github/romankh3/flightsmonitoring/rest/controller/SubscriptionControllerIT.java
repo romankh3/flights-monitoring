@@ -10,7 +10,6 @@ import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionDto;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -44,7 +43,7 @@ public class SubscriptionControllerIT {
         dto.setLocale(Locale.RU_RU);
         dto.setOriginPlace("HRK-sky");
         dto.setDestinationPlace("KBP-sky");
-        dto.setOutboundPartialDate(LocalDate.now().plusMonths(1).format(DateTimeFormatter.ISO_DATE));
+        dto.setOutboundPartialDate(LocalDate.now().plusMonths(1));
 
         MockHttpServletRequestBuilder requestCreateSubscription = MockMvcRequestBuilders
                 .post(SUBSCRIPTION_CONTROLLER_EP)
