@@ -21,7 +21,7 @@ public interface SubscriptionService {
      * @param email provided email;
      * @return the collection of the {@link SubscriptionDto} objects.
      */
-    List<SubscriptionDto> findSubscribeByEmail(String email);
+    List<SubscriptionDto> findByEmail(String email);
 
     /**
      * Remove subscription based on it ID

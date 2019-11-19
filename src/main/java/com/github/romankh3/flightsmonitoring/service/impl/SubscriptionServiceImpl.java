@@ -57,7 +57,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * {@inheritDoc}
      */
     @Override
-    public List<SubscriptionDto> findSubscribeByEmail(String email) {
+    public List<SubscriptionDto> findByEmail(String email) {
         return subscriptionRepository.findByEmail(email).stream().map(this::toDto).collect(Collectors.toList());
     }
 
