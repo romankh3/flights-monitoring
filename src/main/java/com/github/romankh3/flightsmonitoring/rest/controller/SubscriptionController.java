@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * {@link Controller} to handle Subscriptions.
+ */
 @RequestMapping(SubscriptionController.SUBSCRIPTION_CONTROLLER_EP)
 @Controller
 public class SubscriptionController {
@@ -30,20 +34,19 @@ public class SubscriptionController {
         return subscriptionService.create(dto);
     }
 
-    @GetMapping("/{email}")
-    public @ResponseBody
-    List<SubscriptionDto> getAllSubscription(@PathVariable final String email) {
-        return subscriptionService.findSubscribeByEmail(email);
+    @GetMapping()
+    public @ResponseBody List<SubscriptionDto> findByEmail(@PathVariable final String email) {
+        return subscriptionService.findByEmail(email);
     }
 
-    @PutMapping("/{subscriptionId}")
-    public SubscriptionDto update(@PathVariable final Long subscriptionId,
+    @PutMapping("/{id}")
+    public SubscriptionDto update(@PathVariable final Long id,
             @RequestBody @Valid SubscriptionDto dto) {
-        return subscriptionService.update(subscriptionId, dto);
+        return subscriptionService.update(id, dto);
     }
 
-    @DeleteMapping("/{subscriptionId}")
-    public void delete(@PathVariable final Long subscriptionId) {
-        subscriptionService.delete(subscriptionId);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable final Long id) {
+        subscriptionService.delete(id);
     }
 }
