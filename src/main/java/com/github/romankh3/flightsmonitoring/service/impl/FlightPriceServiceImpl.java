@@ -6,12 +6,18 @@ import com.github.romankh3.flightsmonitoring.service.FlightPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class FlightPriceServiceImpl implements FlightPriceService {
 
     @Autowired
     private FlightPricesClient flightPricesClient;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Integer findMinPrice(Subscription subscription) {
         if (subscription.getInboundPartialDate() == null) {

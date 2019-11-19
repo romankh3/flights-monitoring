@@ -8,6 +8,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+/**
+ * {@inheritDoc}
+ */
 @Slf4j
 @Service
 public class EmailNotifierServiceImpl implements EmailNotifierService {
@@ -15,6 +18,9 @@ public class EmailNotifierServiceImpl implements EmailNotifierService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void notifySubscriber(Subscription subscription, Integer oldMinPrice, Integer newMinPrice) {
         log.debug("method notifySubscriber STARTED");
@@ -28,6 +34,9 @@ public class EmailNotifierServiceImpl implements EmailNotifierService {
         log.debug("method notifySubscriber FINISHED");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void notifyAddingSubscription(Subscription subscription) {
         log.debug("method notifyAddingSubscription STARTED");

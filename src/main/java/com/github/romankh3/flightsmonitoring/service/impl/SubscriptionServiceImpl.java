@@ -61,11 +61,17 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return subscriptionRepository.findByEmail(email).stream().map(this::toDto).collect(Collectors.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(Long subscriptionId) {
         subscriptionRepository.deleteById(subscriptionId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SubscriptionDto update(Long subscriptionId, SubscriptionDto dto) {
         Subscription subscription = subscriptionRepository.getOne(subscriptionId);

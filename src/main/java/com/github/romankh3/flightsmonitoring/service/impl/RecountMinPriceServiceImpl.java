@@ -8,6 +8,9 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class RecountMinPriceServiceImpl implements RecountMinPriceService {
 
@@ -21,6 +24,9 @@ public class RecountMinPriceServiceImpl implements RecountMinPriceService {
     private EmailNotifierService emailNotifierService;
 
     //todo add async
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void recount() {
         subscriptionRepository.findAll().stream()

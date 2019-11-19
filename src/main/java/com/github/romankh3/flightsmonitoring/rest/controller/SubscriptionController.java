@@ -2,6 +2,7 @@ package com.github.romankh3.flightsmonitoring.rest.controller;
 
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionDto;
 import com.github.romankh3.flightsmonitoring.service.SubscriptionService;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -23,28 +23,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SubscriptionController {
 
-    public static final String SUBSCRIPTION_CONTROLLER_EP = "/subscribe";
+    public static final String SUBSCRIPTION_CONTROLLER_EP = "/subscription";
 
     @Autowired
     private SubscriptionService subscriptionService;
 
+    @ApiOperation("Create new subscription based on SubscriptionDto")
     @PostMapping
     public @ResponseBody
     SubscriptionDto create(@RequestBody @Valid SubscriptionDto dto) {
         return subscriptionService.create(dto);
     }
 
+    @ApiOperation("Finds all subscriptions based on email")
     @GetMapping()
-    public @ResponseBody List<SubscriptionDto> findByEmail(@PathVariable final String email) {
+    public @ResponseBody
+    List<SubscriptionDto> findByEmail(@PathVariable final String email) {
         return subscriptionService.findByEmail(email);
     }
 
+    @ApiOperation("Updates subscription based on it ID")
     @PutMapping("/{id}")
     public SubscriptionDto update(@PathVariable final Long id,
             @RequestBody @Valid SubscriptionDto dto) {
         return subscriptionService.update(id, dto);
     }
 
+    @ApiOperation("Deletes subscription based on it ID")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable final Long id) {
         subscriptionService.delete(id);
