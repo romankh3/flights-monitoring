@@ -5,7 +5,7 @@ import static com.github.romankh3.flightsmonitoring.client.service.impl.UniRestS
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.romankh3.flightsmonitoring.client.dto.PlaceDto;
+import com.github.romankh3.flightsmonitoring.client.dto.PlacesDto;
 import com.github.romankh3.flightsmonitoring.client.service.PlacesClient;
 import com.github.romankh3.flightsmonitoring.client.service.UniRestService;
 import com.mashape.unirest.http.HttpResponse;
@@ -34,7 +34,7 @@ public class PlacesClientImpl implements PlacesClient {
      * {@inheritDoc}
      */
     @Override
-    public List<PlaceDto> retrieveListPlaces(String query, String country, String currency, String locale)
+    public List<PlacesDto> retrieveListPlaces(String query, String country, String currency, String locale)
             throws IOException, UnirestException {
         HttpResponse<JsonNode> response = uniRestService
                 .get(String.format(PLACES_FORMAT, country, currency, locale, query));
@@ -45,7 +45,7 @@ public class PlacesClientImpl implements PlacesClient {
 
         String jsonList = response.getBody().getObject().get(PLACES_KEY).toString();
 
-        return objectMapper.readValue(jsonList, new TypeReference<List<PlaceDto>>() {
+        return objectMapper.readValue(jsonList, new TypeReference<List<PlacesDto>>() {
         });
     }
 }

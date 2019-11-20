@@ -1,10 +1,11 @@
 package com.github.romankh3.flightsmonitoring.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.romankh3.flightsmonitoring.service.FlightPriceService;
 import lombok.Data;
 
 /**
- * Data transfer object for Place based on SkyScanner response.
+ * Data transfer object using in {@link FlightPriceService}.
  */
 @Data
 public class PlaceDto {

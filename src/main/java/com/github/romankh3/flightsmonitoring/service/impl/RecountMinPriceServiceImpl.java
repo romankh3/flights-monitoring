@@ -29,14 +29,16 @@ public class RecountMinPriceServiceImpl implements RecountMinPriceService {
      */
     @Override
     public void recount() {
-        subscriptionRepository.findAll().stream()
-                .filter(it -> it.getOutboundPartialDate().isAfter(LocalDate.now().minusDays(1)))
-                .forEach(subscription -> {
-            Integer newNumPrice = flightPriceService.findMinPrice(subscription);
-            if (subscription.getMinPrice() > newNumPrice) {
-                emailNotifierService.notifySubscriber(subscription, subscription.getMinPrice(), newNumPrice);
-                subscription.setMinPrice(newNumPrice);
-                subscriptionRepository.save(subscription);
+        subscriptionRepository.findAll().forEach(subscription -> {
+            if(subscription.getOutboundPartialDate().isAfter(LocalDate.now().minusDays(1))) {
+                Integer newNumPrice = flightPriceService.findMinPrice(subscription);
+                if (subscription.getMinPrice() > newNumPrice) {
+                    emailNotifierService.notifySubscriber(subscription, subscription.getMinPrice(), newNumPrice);
+                    subscription.setMinPrice(newNumPrice);
+                    subscriptionRepository.save(subscription);
+                }
+            } else {
+                subscriptionRepository.delete(subscription);
             }
         });
     }
