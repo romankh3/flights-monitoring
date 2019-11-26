@@ -36,7 +36,7 @@ public class SubscriptionController {
     }
 
     @ApiOperation("Finds all subscriptions based on email")
-    @GetMapping()
+    @GetMapping("/{email}")
     public @ResponseBody
     List<SubscriptionDto> findByEmail(@PathVariable final String email) {
         return subscriptionService.findByEmail(email);
