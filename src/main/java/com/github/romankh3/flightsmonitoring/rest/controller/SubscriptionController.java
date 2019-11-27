@@ -4,6 +4,7 @@ import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionCreateDto;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionDto;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionUpdateDto;
 import com.github.romankh3.flightsmonitoring.service.SubscriptionService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * {@link Controller} to handle Subscriptions.
  */
+@Api(value = "Operations with Subscriptions", tags = "Subscription Controller")
 @RequestMapping(SubscriptionController.SUBSCRIPTION_CONTROLLER_EP)
 @Controller
 public class SubscriptionController {
