@@ -1,6 +1,6 @@
 package com.github.romankh3.flightsmonitoring.service.impl;
 
-import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesResponse;
+import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesDto;
 import com.github.romankh3.flightsmonitoring.repository.SubscriptionRepository;
 import com.github.romankh3.flightsmonitoring.service.EmailNotifierService;
 import com.github.romankh3.flightsmonitoring.service.FlightPriceService;
@@ -32,8 +32,8 @@ public class RecountMinPriceServiceImpl implements RecountMinPriceService {
     public void recount() {
         subscriptionRepository.findAll().forEach(subscription -> {
             if(subscription.getOutboundPartialDate().isAfter(LocalDate.now().minusDays(1))) {
-                FlightPricesResponse flightPricesResponse = flightPriceService.findFlightPrice(subscription);
-                Integer newNumPrice = flightPriceService.findMinPrice(flightPricesResponse);
+                FlightPricesDto flightPricesDto = flightPriceService.findFlightPrice(subscription);
+                Integer newNumPrice = flightPriceService.findMinPrice(flightPricesDto);
                 if (subscription.getMinPrice() > newNumPrice) {
                     emailNotifierService.notifySubscriber(subscription, subscription.getMinPrice(), newNumPrice);
                     subscription.setMinPrice(newNumPrice);

@@ -1,6 +1,6 @@
 package com.github.romankh3.flightsmonitoring.client.service;
 
-import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesResponse;
+import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesDto;
 import com.github.romankh3.flightsmonitoring.client.dto.Locale;
 import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
 import java.time.LocalDate;
@@ -21,11 +21,11 @@ public class FlightPricesClientIT {
 
     @Test
     public void testBrowseQuota() {
-        FlightPricesResponse flightPricesResponse = flightPricesClient
+        FlightPricesDto flightPricesDto = flightPricesClient
                 .browseQuotes("UA", "UAH", Locale.RU_RU, "HRK-sky", "KBP-sky",
                         LocalDate.now().plusMonths(1).format(DateTimeFormatter.ISO_DATE));
 
-        Assert.assertNotNull(flightPricesResponse);
+        Assert.assertNotNull(flightPricesDto);
     }
 
     @Test(expected = FlightClientException.class)

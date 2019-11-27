@@ -1,7 +1,6 @@
 package com.github.romankh3.flightsmonitoring.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesResponse;
 import com.github.romankh3.flightsmonitoring.repository.entity.Subscription;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;

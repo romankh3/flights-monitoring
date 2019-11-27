@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.romankh3.flightsmonitoring.client.dto.CarrierDto;
 import com.github.romankh3.flightsmonitoring.client.dto.CurrencyDto;
-import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesResponse;
+import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesDto;
 import com.github.romankh3.flightsmonitoring.client.dto.PlaceDto;
 import com.github.romankh3.flightsmonitoring.client.dto.QuoteDto;
 import com.github.romankh3.flightsmonitoring.client.dto.ValidationErrorDto;
@@ -48,7 +48,7 @@ public class FlightPricesClientImpl implements FlightPricesClient {
      * {@inheritDoc}
      */
     @Override
-    public FlightPricesResponse browseQuotes(String country, String currency, String locale, String originPlace,
+    public FlightPricesDto browseQuotes(String country, String currency, String locale, String originPlace,
             String destinationPlace, String outboundPartialDate) {
 
         HttpResponse<JsonNode> response = uniRestService.get(String
@@ -57,7 +57,7 @@ public class FlightPricesClientImpl implements FlightPricesClient {
         return mapToObject(response);
     }
 
-    public FlightPricesResponse browseQuotes(String country, String currency, String locale, String originPlace,
+    public FlightPricesDto browseQuotes(String country, String currency, String locale, String originPlace,
             String destinationPlace, String outboundPartialDate, String inboundPartialDate) {
         HttpResponse<JsonNode> response = uniRestService.get(String
                 .format(OPTIONAL_BROWSE_QUOTES_FORMAT, country, currency, locale, originPlace, destinationPlace,
@@ -65,22 +65,22 @@ public class FlightPricesClientImpl implements FlightPricesClient {
         return mapToObject(response);
     }
 
-    private FlightPricesResponse mapToObject(HttpResponse<JsonNode> response) {
+    private FlightPricesDto mapToObject(HttpResponse<JsonNode> response) {
         if (response.getStatus() == HttpStatus.SC_OK) {
-            FlightPricesResponse flightPricesResponse = new FlightPricesResponse();
-            flightPricesResponse.setQuotas(readValue(response.getBody().getObject().get(QUOTES_KEY).toString(),
+            FlightPricesDto flightPricesDto = new FlightPricesDto();
+            flightPricesDto.setQuotas(readValue(response.getBody().getObject().get(QUOTES_KEY).toString(),
                     new TypeReference<List<QuoteDto>>() {
                     }));
-            flightPricesResponse.setCarriers(readValue(response.getBody().getObject().get(CARRIERS_KEY).toString(),
+            flightPricesDto.setCarriers(readValue(response.getBody().getObject().get(CARRIERS_KEY).toString(),
                     new TypeReference<List<CarrierDto>>() {
                     }));
-            flightPricesResponse.setCurrencies(readValue(response.getBody().getObject().get(CURRENCIES_KEY).toString(),
+            flightPricesDto.setCurrencies(readValue(response.getBody().getObject().get(CURRENCIES_KEY).toString(),
                     new TypeReference<List<CurrencyDto>>() {
                     }));
-            flightPricesResponse.setPlaces(readValue(response.getBody().getObject().get(PLACES_KEY).toString(),
+            flightPricesDto.setPlaces(readValue(response.getBody().getObject().get(PLACES_KEY).toString(),
                     new TypeReference<List<PlaceDto>>() {
                     }));
-            return flightPricesResponse;
+            return flightPricesDto;
         }
         throw new FlightClientException(String.format("There are validation errors. statusCode = %s", response.getStatus()),
                 readValue(response.getBody().getObject().get(VALIDATIONS_KEY).toString(),

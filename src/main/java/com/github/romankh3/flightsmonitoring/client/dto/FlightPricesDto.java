@@ -8,7 +8,7 @@ import lombok.Data;
  * Response object for the Flight Prices.
  */
 @Data
-public class FlightPricesResponse {
+public class FlightPricesDto {
 
     @JsonProperty("Quotes")
     private List<QuoteDto> quotas;
@@ -21,7 +21,4 @@ public class FlightPricesResponse {
 
     @JsonProperty("Currencies")
     private List<CurrencyDto> currencies;
-
-    @JsonProperty("ValidationErrors")
-    private List<ValidationErrorDto> validationErrors;
 }
