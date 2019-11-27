@@ -42,7 +42,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Optional<Subscription> one = subscriptionRepository.findOne(Example.of(subscription));
 
         if (one.isPresent()) {
-            log.info("The same subscription has been found for Subscription={}", subscription);
+            log.info("The same subscription has been found for SubscriptionDto={}", dto);
             Subscription fromDatabase = one.get();
             FlightPricesDto flightPriceResponse = flightPriceService.findFlightPrice(subscription);
             subscription.setMinPrice(flightPriceService.findMinPrice(flightPriceResponse));
@@ -65,7 +65,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return subscriptionRepository.findByEmail(email).stream()
                 .map(subscription -> {
                     FlightPricesDto flightPriceResponse = flightPriceService.findFlightPrice(subscription);
-                    if (subscription.getMinPrice() != flightPriceService.findMinPrice(flightPriceResponse)) {
+                    if (!subscription.getMinPrice().equals(flightPriceService.findMinPrice(flightPriceResponse))) {
                         subscription.setMinPrice(flightPriceService.findMinPrice(flightPriceResponse));
                         subscriptionRepository.save(subscription);
                     }
