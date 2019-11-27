@@ -1,6 +1,8 @@
 package com.github.romankh3.flightsmonitoring.rest.controller;
 
+import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionCreateDto;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionDto;
+import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionUpdateDto;
 import com.github.romankh3.flightsmonitoring.service.SubscriptionService;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
@@ -31,7 +33,7 @@ public class SubscriptionController {
     @ApiOperation("Create new subscription based on SubscriptionDto")
     @PostMapping
     public @ResponseBody
-    SubscriptionDto create(@RequestBody @Valid SubscriptionDto dto) {
+    SubscriptionDto create(@RequestBody @Valid SubscriptionCreateDto dto) {
         return subscriptionService.create(dto);
     }
 
@@ -45,7 +47,7 @@ public class SubscriptionController {
     @ApiOperation("Updates subscription based on it ID")
     @PutMapping("/{id}")
     public SubscriptionDto update(@PathVariable final Long id,
-            @RequestBody @Valid SubscriptionDto dto) {
+            @RequestBody @Valid SubscriptionUpdateDto dto) {
         return subscriptionService.update(id, dto);
     }
 

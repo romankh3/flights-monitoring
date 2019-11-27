@@ -1,7 +1,7 @@
 package com.github.romankh3.flightsmonitoring.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesResponse;
+import com.github.romankh3.flightsmonitoring.repository.entity.Subscription;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import javax.validation.constraints.Email;
@@ -9,12 +9,10 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
- * Data transfer object to see all the data related to subscription.
+ * Dto for updating {@link Subscription} object.
  */
 @Data
-public class SubscriptionDto {
-
-    private Long id;
+public class SubscriptionUpdateDto {
 
     @NotNull
     @Email
@@ -49,10 +47,4 @@ public class SubscriptionDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "Date back", example = "2019-12-25")
     private LocalDate inboundPartialDate;
-
-    @ApiModelProperty(value = "Min price based on all these data", example = "100")
-    private Integer minPrice;
-
-    @ApiModelProperty(value = "Response which contains all the need info about min price flight")
-    private FlightPricesResponse flightPricesResponse;
 }

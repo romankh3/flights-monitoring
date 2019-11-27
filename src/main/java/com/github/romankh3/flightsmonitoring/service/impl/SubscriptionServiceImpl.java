@@ -1,8 +1,11 @@
 package com.github.romankh3.flightsmonitoring.service.impl;
 
+import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesResponse;
 import com.github.romankh3.flightsmonitoring.repository.SubscriptionRepository;
 import com.github.romankh3.flightsmonitoring.repository.entity.Subscription;
+import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionCreateDto;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionDto;
+import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionUpdateDto;
 import com.github.romankh3.flightsmonitoring.service.EmailNotifierService;
 import com.github.romankh3.flightsmonitoring.service.FlightPriceService;
 import com.github.romankh3.flightsmonitoring.service.SubscriptionService;
@@ -34,7 +37,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * {@inheritDoc}
      */
     @Override
-    public SubscriptionDto create(SubscriptionDto dto) {
+    public SubscriptionDto create(SubscriptionCreateDto dto) {
         Subscription subscription = toEntity(dto);
         Optional<Subscription> one = subscriptionRepository.findOne(Example.of(subscription));
 
@@ -44,8 +47,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             return toDto(fromDatabase);
         } else {
 
-            Integer minPrice = flightPriceService.findMinPrice(subscription);
-            subscription.setMinPrice(minPrice);
+            FlightPricesResponse flightPrice = flightPriceService.findFlightPrice(subscription);
+            subscription.setMinPrice(flightPriceService.findMinPrice(flightPrice));
             Subscription saved = subscriptionRepository.save(subscription);
             log.info("Added new subscription={}", saved);
             emailNotifierService.notifyAddingSubscription(subscription);
@@ -73,7 +76,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * {@inheritDoc}
      */
     @Override
-    public SubscriptionDto update(Long subscriptionId, SubscriptionDto dto) {
+    public SubscriptionDto update(Long subscriptionId, SubscriptionUpdateDto dto) {
         Subscription subscription = subscriptionRepository.getOne(subscriptionId);
         subscription.setDestinationPlace(dto.getDestinationPlace());
         subscription.setOriginPlace(dto.getOriginPlace());
@@ -86,7 +89,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return toDto(subscriptionRepository.save(subscription));
     }
 
-    private Subscription toEntity(SubscriptionDto dto) {
+    private Subscription toEntity(SubscriptionCreateDto dto) {
         Subscription subscription = new Subscription();
         subscription.setCountry(dto.getCountry());
         subscription.setCurrency(dto.getCurrency());

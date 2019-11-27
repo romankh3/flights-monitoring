@@ -7,7 +7,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.romankh3.flightsmonitoring.client.dto.Locale;
 import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
+import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionCreateDto;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionDto;
+import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionUpdateDto;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -36,18 +38,18 @@ public class SubscriptionControllerIT {
 
     @Test
     public void shouldCRUDSubscription() throws Exception {
-        SubscriptionDto dto = new SubscriptionDto();
-        dto.setEmail("kremenec.andru@gmail.com");
-        dto.setCountry("UA");
-        dto.setCurrency("UAH");
-        dto.setLocale(Locale.RU_RU);
-        dto.setOriginPlace("HRK-sky");
-        dto.setDestinationPlace("KBP-sky");
-        dto.setOutboundPartialDate(LocalDate.now().plusMonths(1));
+        SubscriptionCreateDto createDto = new SubscriptionCreateDto();
+        createDto.setEmail("kremenec.andru@gmail.com");
+        createDto.setCountry("UA");
+        createDto.setCurrency("UAH");
+        createDto.setLocale(Locale.RU_RU);
+        createDto.setOriginPlace("HRK-sky");
+        createDto.setDestinationPlace("KBP-sky");
+        createDto.setOutboundPartialDate(LocalDate.now().plusMonths(1));
 
         MockHttpServletRequestBuilder createRequest = MockMvcRequestBuilders
                 .post(SUBSCRIPTION_CONTROLLER_EP)
-                .content(objectMapper.writeValueAsString(dto))
+                .content(objectMapper.writeValueAsString(createDto))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE);
 
@@ -56,13 +58,20 @@ public class SubscriptionControllerIT {
                 .readValue(performAndConvertToString(createRequest), SubscriptionDto.class);
 
         Assert.assertNotNull(savedDto);
-        Assert.assertEquals(dto, savedDto);
+        Assert.assertEquals(createDto.getEmail(), savedDto.getEmail());
+        Assert.assertEquals(createDto.getCountry(), savedDto.getCountry());
+        Assert.assertEquals(createDto.getCurrency(), savedDto.getCurrency());
+        Assert.assertEquals(createDto.getLocale(), savedDto.getLocale());
+        Assert.assertEquals(createDto.getDestinationPlace(), savedDto.getDestinationPlace());
+        Assert.assertEquals(createDto.getInboundPartialDate(), savedDto.getInboundPartialDate());
+        Assert.assertEquals(createDto.getOutboundPartialDate(), savedDto.getOutboundPartialDate());
+        Assert.assertEquals(createDto.getOriginPlace(), savedDto.getOriginPlace());
 
        //Create the same subscription
         mockMvc.perform(createRequest);
 
         MockHttpServletRequestBuilder getAllByEmailRequest = MockMvcRequestBuilders
-                .get(SUBSCRIPTION_CONTROLLER_EP + "/" + dto.getEmail())
+                .get(SUBSCRIPTION_CONTROLLER_EP + "/" + createDto.getEmail())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE);
 
@@ -72,9 +81,16 @@ public class SubscriptionControllerIT {
                 });
 
         Assert.assertEquals(1, subscriptions.size());
-        Assert.assertEquals(dto, subscriptions.get(0));
+        Assert.assertEquals(createDto.getEmail(), subscriptions.get(0).getEmail());
+        Assert.assertEquals(createDto.getCountry(), subscriptions.get(0).getCountry());
+        Assert.assertEquals(createDto.getCurrency(), subscriptions.get(0).getCurrency());
+        Assert.assertEquals(createDto.getLocale(), subscriptions.get(0).getLocale());
+        Assert.assertEquals(createDto.getDestinationPlace(), subscriptions.get(0).getDestinationPlace());
+        Assert.assertEquals(createDto.getInboundPartialDate(), subscriptions.get(0).getInboundPartialDate());
+        Assert.assertEquals(createDto.getOutboundPartialDate(), subscriptions.get(0).getOutboundPartialDate());
+        Assert.assertEquals(createDto.getOriginPlace(), subscriptions.get(0).getOriginPlace());
 
-        SubscriptionDto updatedDto = new SubscriptionDto();
+        SubscriptionUpdateDto updatedDto = new SubscriptionUpdateDto();
         updatedDto.setEmail("kremenec.andru@gmail.com");
         updatedDto.setCountry("RU");
         updatedDto.setCurrency("RUB");
@@ -95,7 +111,14 @@ public class SubscriptionControllerIT {
                 });
 
         Assert.assertEquals(1, subscriptions.size());
-        Assert.assertEquals(updatedDto, subscriptions.get(0));
+        Assert.assertEquals(updatedDto.getEmail(), subscriptions.get(0).getEmail());
+        Assert.assertEquals(updatedDto.getCountry(), subscriptions.get(0).getCountry());
+        Assert.assertEquals(updatedDto.getCurrency(), subscriptions.get(0).getCurrency());
+        Assert.assertEquals(updatedDto.getLocale(), subscriptions.get(0).getLocale());
+        Assert.assertEquals(updatedDto.getDestinationPlace(), subscriptions.get(0).getDestinationPlace());
+        Assert.assertEquals(updatedDto.getInboundPartialDate(), subscriptions.get(0).getInboundPartialDate());
+        Assert.assertEquals(updatedDto.getOutboundPartialDate(), subscriptions.get(0).getOutboundPartialDate());
+        Assert.assertEquals(updatedDto.getOriginPlace(), subscriptions.get(0).getOriginPlace());
 
         MockHttpServletRequestBuilder removeRequest = MockMvcRequestBuilders
                 .delete(SUBSCRIPTION_CONTROLLER_EP + "/" + subscriptions.get(0).getId())
