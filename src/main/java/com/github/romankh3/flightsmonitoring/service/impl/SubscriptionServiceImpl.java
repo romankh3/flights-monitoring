@@ -44,15 +44,16 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         if (one.isPresent()) {
             log.info("The same subscription has been found for Subscription={}", subscription);
             Subscription fromDatabase = one.get();
-            return toDto(fromDatabase);
+            FlightPricesResponse flightPriceResponse = flightPriceService.findFlightPrice(subscription);
+            subscription.setMinPrice(flightPriceService.findMinPrice(flightPriceResponse));
+            return toDto(fromDatabase, flightPriceResponse);
         } else {
-
-            FlightPricesResponse flightPrice = flightPriceService.findFlightPrice(subscription);
-            subscription.setMinPrice(flightPriceService.findMinPrice(flightPrice));
+            FlightPricesResponse flightPriceResponse = flightPriceService.findFlightPrice(subscription);
+            subscription.setMinPrice(flightPriceService.findMinPrice(flightPriceResponse));
             Subscription saved = subscriptionRepository.save(subscription);
             log.info("Added new subscription={}", saved);
             emailNotifierService.notifyAddingSubscription(subscription);
-            return toDto(saved);
+            return toDto(saved, flightPriceResponse);
         }
     }
 
@@ -61,7 +62,16 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      */
     @Override
     public List<SubscriptionDto> findByEmail(String email) {
-        return subscriptionRepository.findByEmail(email).stream().map(this::toDto).collect(Collectors.toList());
+        return subscriptionRepository.findByEmail(email).stream()
+                .map(subscription -> {
+                    FlightPricesResponse flightPriceResponse = flightPriceService.findFlightPrice(subscription);
+                    if (subscription.getMinPrice() != flightPriceService.findMinPrice(flightPriceResponse)) {
+                        subscription.setMinPrice(flightPriceService.findMinPrice(flightPriceResponse));
+                        subscriptionRepository.save(subscription);
+                    }
+                    return toDto(subscription, flightPriceResponse);
+                })
+                .collect(Collectors.toList());
     }
 
     /**
@@ -86,7 +96,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         subscription.setEmail(dto.getEmail());
         subscription.setOutboundPartialDate(dto.getOutboundPartialDate());
         subscription.setInboundPartialDate(dto.getInboundPartialDate());
-        return toDto(subscriptionRepository.save(subscription));
+
+        FlightPricesResponse flightPriceResponse = flightPriceService.findFlightPrice(subscription);
+        subscription.setMinPrice(flightPriceService.findMinPrice(flightPriceResponse));
+        return toDto(subscriptionRepository.save(subscription), flightPriceResponse);
     }
 
     private Subscription toEntity(SubscriptionCreateDto dto) {
@@ -103,7 +116,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return subscription;
     }
 
-    private SubscriptionDto toDto(Subscription entity) {
+    private SubscriptionDto toDto(Subscription entity, FlightPricesResponse response) {
         SubscriptionDto dto = new SubscriptionDto();
         dto.setEmail(entity.getEmail());
         dto.setCountry(entity.getCountry());
@@ -115,6 +128,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         dto.setInboundPartialDate(entity.getInboundPartialDate());
         dto.setMinPrice(entity.getMinPrice());
         dto.setId(entity.getId());
+        dto.setFlightPricesResponse(response);
         return dto;
     }
 }

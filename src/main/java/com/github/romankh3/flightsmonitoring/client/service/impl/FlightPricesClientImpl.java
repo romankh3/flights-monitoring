@@ -67,20 +67,20 @@ public class FlightPricesClientImpl implements FlightPricesClient {
 
     private FlightPricesResponse mapToObject(HttpResponse<JsonNode> response) {
         if (response.getStatus() == HttpStatus.SC_OK) {
-            return FlightPricesResponse.builder()
-                    .quotas(readValue(response.getBody().getObject().get(QUOTES_KEY).toString(),
-                            new TypeReference<List<QuoteDto>>() {
-                            }))
-                    .carriers(readValue(response.getBody().getObject().get(CARRIERS_KEY).toString(),
-                            new TypeReference<List<CarrierDto>>() {
-                            }))
-                    .places(readValue(response.getBody().getObject().get(PLACES_KEY).toString(),
-                            new TypeReference<List<PlaceDto>>() {
-                            }))
-                    .currencies(readValue(response.getBody().getObject().get(CURRENCIES_KEY).toString(),
-                            new TypeReference<List<CurrencyDto>>() {
-                            }))
-                    .build();
+            FlightPricesResponse flightPricesResponse = new FlightPricesResponse();
+            flightPricesResponse.setQuotas(readValue(response.getBody().getObject().get(QUOTES_KEY).toString(),
+                    new TypeReference<List<QuoteDto>>() {
+                    }));
+            flightPricesResponse.setCarriers(readValue(response.getBody().getObject().get(CARRIERS_KEY).toString(),
+                    new TypeReference<List<CarrierDto>>() {
+                    }));
+            flightPricesResponse.setCurrencies(readValue(response.getBody().getObject().get(CURRENCIES_KEY).toString(),
+                    new TypeReference<List<CurrencyDto>>() {
+                    }));
+            flightPricesResponse.setPlaces(readValue(response.getBody().getObject().get(PLACES_KEY).toString(),
+                    new TypeReference<List<PlaceDto>>() {
+                    }));
+            return flightPricesResponse;
         }
         throw new FlightClientException(String.format("There are validation errors. statusCode = %s", response.getStatus()),
                 readValue(response.getBody().getObject().get(VALIDATIONS_KEY).toString(),
