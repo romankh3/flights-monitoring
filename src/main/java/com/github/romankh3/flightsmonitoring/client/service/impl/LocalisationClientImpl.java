@@ -9,13 +9,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.romankh3.flightsmonitoring.client.dto.CountryDto;
 import com.github.romankh3.flightsmonitoring.client.dto.CurrencyDto;
+import com.github.romankh3.flightsmonitoring.client.exception.FlightSearchClientException;
 import com.github.romankh3.flightsmonitoring.client.service.LocalisationClient;
 import com.github.romankh3.flightsmonitoring.client.service.UniRestService;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import java.io.IOException;
 import java.util.List;
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component;
 /**
  * {@inheritDoc}
  */
+@Slf4j
 @Component
 public class LocalisationClientImpl implements LocalisationClient {
 
@@ -36,7 +38,7 @@ public class LocalisationClientImpl implements LocalisationClient {
      * {@inheritDoc}
      */
     @Override
-    public List<CountryDto> retrieveCountries(String locale) throws IOException {
+    public List<CountryDto> retrieveCountries(String locale) {
         HttpResponse<JsonNode> response = uniRestService.get(String.format(COUNTRIES_FORMAT, locale));
 
         if (response.getStatus() != HttpStatus.SC_OK) {
@@ -45,15 +47,20 @@ public class LocalisationClientImpl implements LocalisationClient {
 
         String jsonList = response.getBody().getObject().get(COUNTRIES_KEY).toString();
 
-        return objectMapper.readValue(jsonList, new TypeReference<List<CountryDto>>() {
-        });
+        try {
+            return objectMapper.readValue(jsonList, new TypeReference<List<CountryDto>>() {
+            });
+        } catch (IOException e) {
+            log.error("Error with reading value from jsonList", e);
+            throw new FlightSearchClientException("Error with reading value from jsonList", e);
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<CurrencyDto> retrieveCurrencies() throws IOException, UnirestException {
+    public List<CurrencyDto> retrieveCurrencies() {
 
         HttpResponse<JsonNode> response = uniRestService.get(CURRENCIES_FORMAT);
         if (response.getStatus() != HttpStatus.SC_OK) {
@@ -62,7 +69,12 @@ public class LocalisationClientImpl implements LocalisationClient {
 
         String jsonList = response.getBody().getObject().get(CURRENCIES_KEY).toString();
 
-        return objectMapper.readValue(jsonList, new TypeReference<List<CurrencyDto>>() {
-        });
+        try {
+            return objectMapper.readValue(jsonList, new TypeReference<List<CurrencyDto>>() {
+            });
+        } catch (IOException e) {
+            log.error("Error with reading value from jsonList", e);
+            throw new FlightSearchClientException("Error with reading value from jsonList", e);
+        }
     }
 }

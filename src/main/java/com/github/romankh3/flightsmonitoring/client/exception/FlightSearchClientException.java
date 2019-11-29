@@ -1,22 +1,24 @@
-package com.github.romankh3.flightsmonitoring.exception;
+package com.github.romankh3.flightsmonitoring.client.exception;
 
 import com.github.romankh3.flightsmonitoring.client.dto.ValidationErrorDto;
 import java.util.List;
+import lombok.ToString;
 
 /**
  * A {@link RuntimeException} that is thrown in case of an flight monitoring failures.
  */
-public final class FlightClientException extends RuntimeException {
+@ToString
+public final class FlightSearchClientException extends RuntimeException {
 
-    public FlightClientException(String message) {
+    public FlightSearchClientException(String message) {
         super(message);
     }
 
-    public FlightClientException(String message, Throwable throwable) {
+    public FlightSearchClientException(String message, Throwable throwable) {
         super(message, throwable);
     }
 
-    public FlightClientException(String message, List<ValidationErrorDto> errors) {
+    public FlightSearchClientException(String message, List<ValidationErrorDto> errors) {
         super(message);
         this.validationErrorDtos = errors;
     }

@@ -3,9 +3,6 @@ package com.github.romankh3.flightsmonitoring.client.service;
 import com.github.romankh3.flightsmonitoring.client.dto.CountryDto;
 import com.github.romankh3.flightsmonitoring.client.dto.CurrencyDto;
 import com.github.romankh3.flightsmonitoring.client.dto.Locale;
-import com.github.romankh3.flightsmonitoring.client.service.LocalisationClient;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import java.io.IOException;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,13 +22,13 @@ public class LocalisationClientIT {
     private LocalisationClient localisationClient;
 
     @Test
-    public void testCurrencies() throws IOException, UnirestException {
+    public void testCurrencies() {
         List<CurrencyDto> currencies = localisationClient.retrieveCurrencies();
         Assert.assertFalse(currencies.isEmpty());
     }
 
     @Test
-    public void testCountries() throws IOException, UnirestException {
+    public void testCountries() {
         List<CountryDto> countries = localisationClient.retrieveCountries(Locale.EN_GB);
         Assert.assertFalse(countries.isEmpty());
     }

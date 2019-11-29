@@ -6,7 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.romankh3.flightsmonitoring.client.dto.Locale;
-import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
+import com.github.romankh3.flightsmonitoring.client.exception.FlightSearchClientException;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionCreateDto;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionDto;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionUpdateDto;
@@ -139,7 +139,7 @@ public class SubscriptionControllerIT {
         try {
             list = objectMapper.readValue(resultAsString, valueTypeRef);
         } catch (IOException e) {
-            throw new FlightClientException("Object Mapping failure.", e);
+            throw new FlightSearchClientException("Object Mapping failure.", e);
         }
         return list;
     }

@@ -1,11 +1,11 @@
 package com.github.romankh3.flightsmonitoring.client.service.impl;
 
-import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
+import com.github.romankh3.flightsmonitoring.client.exception.FlightSearchClientException;
 import com.github.romankh3.flightsmonitoring.client.service.UniRestService;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
+import kong.unirest.UnirestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -42,10 +42,11 @@ public class UniRestServiceImpl implements UniRestService {
                     .header("x-rapidapi-key", xRapidApiKey)
                     .asJson();
         } catch (UnirestException e) {
-            throw new FlightClientException(String.format("Request failed, path=%s", HOST + path), e);
+            throw new FlightSearchClientException(String.format("Request failed, path=%s", HOST + path), e);
         }
 
-        log.info("Response from Get request, on path={}, statusCode={}, response={}", path, response.getStatus(), response.getBody().toString());
+        log.info("Response from Get request, on path={}, statusCode={}, response={}", path, response.getStatus(),
+                response.getBody().toString());
         return response;
     }
 }

@@ -2,8 +2,6 @@ package com.github.romankh3.flightsmonitoring.client.service;
 
 import com.github.romankh3.flightsmonitoring.client.dto.Locale;
 import com.github.romankh3.flightsmonitoring.client.dto.PlacesDto;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import java.io.IOException;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +18,7 @@ public class PlacesClientIT {
     private PlacesClient placesClient;
 
     @Test
-    public void testPlaces() throws IOException, UnirestException {
+    public void testPlaces() {
         List<PlacesDto> places = placesClient.retrieveListPlaces("Kyiv", "UK", "GBP", Locale.EN_GB);
         Assert.assertFalse(places.isEmpty());
         Assert.assertEquals(10, places.size());
