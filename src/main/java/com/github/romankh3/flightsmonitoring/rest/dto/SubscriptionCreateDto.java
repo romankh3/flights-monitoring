@@ -16,7 +16,7 @@ public class SubscriptionCreateDto {
 
     @NotNull
     @Email
-    @ApiModelProperty(value = "Subscriber's email", example = "test@test.com")
+    @ApiModelProperty(value = "Subscriber's email", example = "example.flights.monitoring@gmail.com")
     private String email;
 
     @NotNull
