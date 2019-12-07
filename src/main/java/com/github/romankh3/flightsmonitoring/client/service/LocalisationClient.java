@@ -2,7 +2,6 @@ package com.github.romankh3.flightsmonitoring.client.service;
 
 import com.github.romankh3.flightsmonitoring.client.dto.CountryDto;
 import com.github.romankh3.flightsmonitoring.client.dto.CurrencyDto;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public interface LocalisationClient {
      *
      * @throws IOException
      */
-    List<CountryDto> retrieveCountries(String locale) throws IOException, UnirestException;
+    List<CountryDto> retrieveCountries(String locale);
 
     /**
      * Retrieve the currencies that we ScyScanner flight search API.
@@ -31,6 +30,6 @@ public interface LocalisationClient {
      *
      * @throws IOException
      */
-    List<CurrencyDto> retrieveCurrencies() throws IOException, UnirestException;
+    List<CurrencyDto> retrieveCurrencies();
 
 }

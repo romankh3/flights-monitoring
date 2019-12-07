@@ -1,7 +1,7 @@
 package com.github.romankh3.flightsmonitoring.client.service;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
 
 /**
  * Service, which is manipulating with Rest calls.

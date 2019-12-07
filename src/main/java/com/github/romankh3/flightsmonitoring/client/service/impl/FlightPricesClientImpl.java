@@ -12,13 +12,13 @@ import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesDto;
 import com.github.romankh3.flightsmonitoring.client.dto.PlaceDto;
 import com.github.romankh3.flightsmonitoring.client.dto.QuoteDto;
 import com.github.romankh3.flightsmonitoring.client.dto.ValidationErrorDto;
+import com.github.romankh3.flightsmonitoring.client.exception.FlightSearchClientException;
 import com.github.romankh3.flightsmonitoring.client.service.FlightPricesClient;
 import com.github.romankh3.flightsmonitoring.client.service.UniRestService;
-import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import java.io.IOException;
 import java.util.List;
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,7 +82,8 @@ public class FlightPricesClientImpl implements FlightPricesClient {
                     }));
             return flightPricesDto;
         }
-        throw new FlightClientException(String.format("There are validation errors. statusCode = %s", response.getStatus()),
+        throw new FlightSearchClientException(
+                String.format("There are validation errors. statusCode = %s", response.getStatus()),
                 readValue(response.getBody().getObject().get(VALIDATIONS_KEY).toString(),
                         new TypeReference<List<ValidationErrorDto>>() {
                         }));
@@ -93,7 +94,7 @@ public class FlightPricesClientImpl implements FlightPricesClient {
         try {
             list = objectMapper.readValue(resultAsString, valueTypeRef);
         } catch (IOException e) {
-            throw new FlightClientException("Object Mapping failure.", e);
+            throw new FlightSearchClientException("Object Mapping failure.", e);
         }
         return list;
     }

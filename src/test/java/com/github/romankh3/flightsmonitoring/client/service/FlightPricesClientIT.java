@@ -2,7 +2,7 @@ package com.github.romankh3.flightsmonitoring.client.service;
 
 import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesDto;
 import com.github.romankh3.flightsmonitoring.client.dto.Locale;
-import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
+import com.github.romankh3.flightsmonitoring.client.exception.FlightSearchClientException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import org.junit.Assert;
@@ -28,7 +28,7 @@ public class FlightPricesClientIT {
         Assert.assertNotNull(flightPricesDto);
     }
 
-    @Test(expected = FlightClientException.class)
+    @Test(expected = FlightSearchClientException.class)
     public void testBrowseQuotaValidation() {
         String date = LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_DATE);
         flightPricesClient.browseQuotes("UA", "UAH", Locale.RU_RU, "HRK-sky", "KBP-sky", date);

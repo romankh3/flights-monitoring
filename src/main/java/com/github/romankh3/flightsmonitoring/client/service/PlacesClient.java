@@ -2,8 +2,6 @@ package com.github.romankh3.flightsmonitoring.client.service;
 
 import com.github.romankh3.flightsmonitoring.client.dto.PlaceDto;
 import com.github.romankh3.flightsmonitoring.client.dto.PlacesDto;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -20,6 +18,5 @@ public interface PlacesClient {
      * @param locale the code of the locale.
      * @return the collection of the {@link PlaceDto} objects.
      */
-    List<PlacesDto> retrieveListPlaces(String query, String country, String currency, String locale)
-            throws IOException, UnirestException;
+    List<PlacesDto> retrieveListPlaces(String query, String country, String currency, String locale);
 }
