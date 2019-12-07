@@ -1,7 +1,7 @@
 package com.github.romankh3.flightsmonitoring.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesDto;
+import com.github.romankh3.skyscanner.api.flightsearchclient.v1.model.browse.BrowseFlightPricesResponseDto;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import javax.validation.constraints.Email;
@@ -54,5 +54,5 @@ public class SubscriptionDto {
     private Integer minPrice;
 
     @ApiModelProperty(value = "Response which contains all the need info about min price flight")
-    private FlightPricesDto flightPricesDto;
+    private BrowseFlightPricesResponseDto browseFlightPricesResponseDto;
 }

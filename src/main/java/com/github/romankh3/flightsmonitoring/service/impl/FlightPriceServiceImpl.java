@@ -1,10 +1,12 @@
 package com.github.romankh3.flightsmonitoring.service.impl;
 
-import com.github.romankh3.flightsmonitoring.client.dto.FlightPricesDto;
-import com.github.romankh3.flightsmonitoring.client.service.FlightPricesClient;
 import com.github.romankh3.flightsmonitoring.repository.entity.Subscription;
 import com.github.romankh3.flightsmonitoring.service.FlightPriceService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.romankh3.skyscanner.api.flightsearchclient.v1.BrowseFlightPricesClient;
+import com.github.romankh3.skyscanner.api.flightsearchclient.v1.BrowseFlightPricesClientImpl;
+import com.github.romankh3.skyscanner.api.flightsearchclient.v1.model.browse.BrowseFlightPricesResponseDto;
+import com.github.romankh3.skyscanner.api.flightsearchclient.v1.model.browse.BrowseSearchDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,14 +15,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class FlightPriceServiceImpl implements FlightPriceService {
 
-    @Autowired
-    private FlightPricesClient flightPricesClient;
+    private BrowseFlightPricesClient client = new BrowseFlightPricesClientImpl();
+
+    @Value("${x.rapid.api.key}")
+    private String xRapidApiKey;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Integer findMinPrice(FlightPricesDto flightPricesDto) {
+    public Integer findMinPrice(BrowseFlightPricesResponseDto flightPricesDto) {
         return flightPricesDto.getQuotas().get(0).getMinPrice();
     }
 
@@ -28,17 +32,19 @@ public class FlightPriceServiceImpl implements FlightPriceService {
      * {@inheritDoc}
      */
     @Override
-    public FlightPricesDto findFlightPrice(Subscription subscription) {
-        if (subscription.getInboundPartialDate() == null) {
-            return flightPricesClient
-                    .browseQuotes(subscription.getCountry(), subscription.getCurrency(), subscription.getLocale(),
-                            subscription.getOriginPlace(), subscription.getDestinationPlace(),
-                            subscription.getOutboundPartialDate().toString());
-        } else {
-            return flightPricesClient
-                    .browseQuotes(subscription.getCountry(), subscription.getCurrency(), subscription.getLocale(),
-                            subscription.getOriginPlace(), subscription.getDestinationPlace(),
-                            subscription.getOutboundPartialDate().toString(), subscription.getInboundPartialDate().toString());
-        }
+    public BrowseFlightPricesResponseDto findFlightPrice(Subscription subscription) {
+        return client.browseQuotes(xRapidApiKey, toBrowseSearchDto(subscription));
+    }
+
+    private BrowseSearchDto toBrowseSearchDto(Subscription subscription) {
+        return BrowseSearchDto.hiddenBuilder()
+                .country(subscription.getCountry())
+                .currency(subscription.getCurrency())
+                .destinationPlace(subscription.getDestinationPlace())
+                .originPlace(subscription.getOriginPlace())
+                .outboundPartialDate(subscription.getOutboundPartialDate())
+                .inboundPartialDate(subscription.getInboundPartialDate())
+                .locale(subscription.getLocale())
+                .build();
     }
 }

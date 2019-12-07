@@ -5,7 +5,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.romankh3.flightsmonitoring.client.dto.Locale;
 import com.github.romankh3.flightsmonitoring.exception.FlightClientException;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionCreateDto;
 import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionDto;
@@ -42,7 +41,7 @@ public class SubscriptionControllerIT {
         createDto.setEmail("kremenec.andru@gmail.com");
         createDto.setCountry("UA");
         createDto.setCurrency("UAH");
-        createDto.setLocale(Locale.RU_RU);
+        createDto.setLocale("ru-RU");
         createDto.setOriginPlace("HRK-sky");
         createDto.setDestinationPlace("KBP-sky");
         createDto.setOutboundPartialDate(LocalDate.now().plusMonths(1));
@@ -67,7 +66,7 @@ public class SubscriptionControllerIT {
         Assert.assertEquals(createDto.getOutboundPartialDate(), savedDto.getOutboundPartialDate());
         Assert.assertEquals(createDto.getOriginPlace(), savedDto.getOriginPlace());
 
-       //Create the same subscription
+        //Create the same subscription
         mockMvc.perform(createRequest);
 
         MockHttpServletRequestBuilder getAllByEmailRequest = MockMvcRequestBuilders
@@ -94,12 +93,13 @@ public class SubscriptionControllerIT {
         updatedDto.setEmail("kremenec.andru@gmail.com");
         updatedDto.setCountry("RU");
         updatedDto.setCurrency("RUB");
-        updatedDto.setLocale(Locale.RU_RU);
+        updatedDto.setLocale("ru-RU");
         updatedDto.setOriginPlace("KBP-sky");
         updatedDto.setDestinationPlace("HRK-sky");
         updatedDto.setOutboundPartialDate(LocalDate.now().plusMonths(2));
 
-        MockHttpServletRequestBuilder updateRequest = MockMvcRequestBuilders.put(SUBSCRIPTION_CONTROLLER_EP + "/" + subscriptions.get(0).getId())
+        MockHttpServletRequestBuilder updateRequest = MockMvcRequestBuilders
+                .put(SUBSCRIPTION_CONTROLLER_EP + "/" + subscriptions.get(0).getId())
                 .content(objectMapper.writeValueAsString(updatedDto))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE);
