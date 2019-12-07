@@ -2,10 +2,10 @@ package com.github.romankh3.flightsmonitoring.service.impl;
 
 import com.github.romankh3.flightsmonitoring.repository.entity.Subscription;
 import com.github.romankh3.flightsmonitoring.service.FlightPriceService;
-import com.github.romankh3.skyscanner.api.flightsearchclient.v1.BrowseFlightPricesClient;
-import com.github.romankh3.skyscanner.api.flightsearchclient.v1.BrowseFlightPricesClientImpl;
-import com.github.romankh3.skyscanner.api.flightsearchclient.v1.model.browse.BrowseFlightPricesResponseDto;
-import com.github.romankh3.skyscanner.api.flightsearchclient.v1.model.browse.BrowseSearchDto;
+import com.github.romankh3.skyscannerflightapiclient.v1.BrowseFlightPricesClient;
+import com.github.romankh3.skyscannerflightapiclient.v1.BrowseFlightPricesClientImpl;
+import com.github.romankh3.skyscannerflightapiclient.v1.model.browse.BrowseFlightPricesResponseDto;
+import com.github.romankh3.skyscannerflightapiclient.v1.model.browse.BrowseSearchDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

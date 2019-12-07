@@ -1,7 +1,7 @@
 package com.github.romankh3.flightsmonitoring.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.github.romankh3.skyscanner.api.flightsearchclient.v1.model.browse.BrowseFlightPricesResponseDto;
+import com.github.romankh3.skyscannerflightapiclient.v1.model.browse.BrowseFlightPricesResponseDto;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import javax.validation.constraints.Email;

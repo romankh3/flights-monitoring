@@ -1,7 +1,7 @@
 package com.github.romankh3.flightsmonitoring.service;
 
 import com.github.romankh3.flightsmonitoring.repository.entity.Subscription;
-import com.github.romankh3.skyscanner.api.flightsearchclient.v1.model.browse.BrowseFlightPricesResponseDto;
+import com.github.romankh3.skyscannerflightapiclient.v1.model.browse.BrowseFlightPricesResponseDto;
 
 /**
  * Service, for getting details based on {@link Subscription} object.

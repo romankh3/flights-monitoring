@@ -4,7 +4,7 @@ import com.github.romankh3.flightsmonitoring.repository.SubscriptionRepository;
 import com.github.romankh3.flightsmonitoring.service.EmailNotifierService;
 import com.github.romankh3.flightsmonitoring.service.FlightPriceService;
 import com.github.romankh3.flightsmonitoring.service.RecountMinPriceService;
-import com.github.romankh3.skyscanner.api.flightsearchclient.v1.model.browse.BrowseFlightPricesResponseDto;
+import com.github.romankh3.skyscannerflightapiclient.v1.model.browse.BrowseFlightPricesResponseDto;
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

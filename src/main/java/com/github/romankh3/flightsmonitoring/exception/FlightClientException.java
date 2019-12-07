@@ -1,6 +1,6 @@
 package com.github.romankh3.flightsmonitoring.exception;
 
-import com.github.romankh3.skyscanner.api.flightsearchclient.v1.model.validation.ValidationErrorsDto;
+import com.github.romankh3.skyscannerflightapiclient.v1.model.validation.ValidationErrorsDto;
 import java.util.List;
 
 /**

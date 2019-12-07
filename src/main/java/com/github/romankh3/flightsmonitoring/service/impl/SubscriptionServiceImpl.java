@@ -8,7 +8,7 @@ import com.github.romankh3.flightsmonitoring.rest.dto.SubscriptionUpdateDto;
 import com.github.romankh3.flightsmonitoring.service.EmailNotifierService;
 import com.github.romankh3.flightsmonitoring.service.FlightPriceService;
 import com.github.romankh3.flightsmonitoring.service.SubscriptionService;
-import com.github.romankh3.skyscanner.api.flightsearchclient.v1.model.browse.BrowseFlightPricesResponseDto;
+import com.github.romankh3.skyscannerflightapiclient.v1.model.browse.BrowseFlightPricesResponseDto;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
