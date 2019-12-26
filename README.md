@@ -23,7 +23,7 @@ cd flights-monitoring
 * lombok
 * unirest
 * H2 in memory database
-* [Skyscanner Flight Search API](https://english.api.rakuten.net/skyscanner/api/skyscanner-flight-search/endpoints)
+* [Skyscanner Flight API Client](https://github.com/romankh3/skyscanner-flight-api-client)
 
 
 

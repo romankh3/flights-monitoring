@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.github.romankh3</groupId>
 	<artifactId>flights-monitoring</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-RELEASE</version>
 	<name>flights-monitoring</name>
 	<description>Project for monitoring flights</description>
 
@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>com.github.romankh3</groupId>
 			<artifactId>skyscanner-flight-api-client</artifactId>
-			<version>0.1.8</version>
+			<version>0.1.10</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

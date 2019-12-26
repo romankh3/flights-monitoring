@@ -1,6 +1,6 @@
 package com.github.romankh3.flightsmonitoring.exception;
 
-import com.github.romankh3.skyscannerflightapiclient.v1.model.validation.ValidationErrorsDto;
+import com.github.romankh3.skyscannerflightapiclient.v1.model.validation.ValidationErrorDto;
 import java.util.List;
 
 /**
@@ -16,9 +16,9 @@ public final class FlightClientException extends RuntimeException {
         super(message, throwable);
     }
 
-    private List<ValidationErrorsDto> validationErrorDtos;
+    private List<ValidationErrorDto> validationErrorDtos;
 
-    public FlightClientException(String message, List<ValidationErrorsDto> errors) {
+    public FlightClientException(String message, List<ValidationErrorDto> errors) {
         super(message);
         this.validationErrorDtos = errors;
     }
