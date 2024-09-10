@@ -20,6 +20,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.github.romankh3.flightsmonitoring.rest.controller"))
                 .paths(PathSelectors.any())
-                .build();
+                .build().
+                 pathMapping("/");
     }
 }
